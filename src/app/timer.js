@@ -33,7 +33,6 @@ export class Timer {
             }
         } else {
             this.pause();
-
             if ( this.onComplete ) {
                 this.onComplete()
             }
