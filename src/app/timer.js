@@ -1,4 +1,5 @@
-class Timer {
+
+export class Timer {
     constructor( durationInput, startButton, pauseButton, emitters ) {
         this.durationInput = durationInput;
         this.startButton = startButton;
@@ -17,18 +18,18 @@ class Timer {
     start = () => {
         // call the tick method 
         if ( this.onStart ) {
-            this.onStart();
+            this.onStart( this.timeRemaining );
         }
         this.tick();
         // assign an instance variable to the intervalID 
-        this.intervalID = setInterval( this.tick, 1000 );
+        this.intervalID = setInterval( this.tick, 50 );
     }
     tick = () => {
         if ( this.timeRemaining > 0 ) {
-            --this.timeRemaining;
+            this.timeRemaining -= .05;
 
             if ( this.onTick ) {
-                this.onTick();
+                this.onTick( this.timeRemaining );
             }
         } else {
             this.pause();
@@ -49,7 +50,7 @@ class Timer {
         return parseFloat( this.durationInput.value );
     }
     set timeRemaining ( time ) {
-        this.durationInput.value = time
+        this.durationInput.value = time.toFixed( 2 )
     }
 
 }
